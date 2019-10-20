@@ -1,0 +1,27 @@
+****************************************************
+
+INFO: tento súbor slúži na zdieľanie linkov obsahujúcich články alebo videá užitočné pre ostatných članov pri nadobúdaní prehľadu v danej téme
+
+****************************************************
+
+
+http://files.grouplens.org/papers/lam-etrics2006-security.pdf 
+- pár dobrých úvah, netreba riešiť tú security
+
+https://towardsdatascience.com/building-a-recommendation-system-using-neural-network-embeddings-1ef92e5c80c9 
+- deep learning použitý na vytovrenie reco 
+
+https://developers.google.com/machine-learning/recommendation/dnn/softmax
+- hlboké neurónové siete - softmax
+
+https://medium.com/cracking-the-data-science-interview/a-gentle-introduction-to-neural-networks-for-machine-learning-d5f3f8987786
+- úvod do NS, architektúry
+
+https://towardsdatascience.com/comprehensive-introduction-to-neural-network-architecture-c08c6d8e5d98
+- aktivačné funkcie, loss funkcie, architektúry
+
+https://www.youtube.com/watch?v=oJNHXPs0XDk
+- video na architektúry
+
+https://www.youtube.com/watch?v=ZkBQ6YA9E40
+- konkrétne implementačné video - Neural Networks for Recommender Systems
