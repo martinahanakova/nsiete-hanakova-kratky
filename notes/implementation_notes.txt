@@ -1,0 +1,11 @@
+konvolucna alebo LSTM
+
+nasldende dorobit veci 
+
+- hierarchia 
+- attention 
+- viac modelov a urobit analyzu
+- pohrat sa s tym
+- mvp
+- embedding autora
+- zistit si, ako by bolo mozne vyuzit, ze mame viacero recenzii toho isteho pouzivatela a viacero recenzii na ten isty produkt
