@@ -9,3 +9,49 @@ nasldende dorobit veci
 - mvp
 - embedding autora
 - zistit si, ako by bolo mozne vyuzit, ze mame viacero recenzii toho isteho pouzivatela a viacero recenzii na ten isty produkt
+
+
+
+USEFUL INFO FROM LABS:
+
+Learning rate - real - exponential -  ⟨10−2,10−4⟩ .
+Learning rate is the most important hyperparameter that should always be tuned. Setting it too low will halt the training as it can get stuck 
+in plateaus or it can pointlessly make the training longer. Setting it too high might cause divergence (see Week 2 lab) that can lead to numeric 
+overflow exception.
+
+Batch size - integer - exponential -  ⟨23,26⟩ .
+Using larger batch size provides faster training as we can use parallelism abilities of modern HW. However the model performance can decrease. 
+Some more complex tasks (e.g. game playing bot) are trained with extremely big batch size in the order of millions.
+
+Hidden layer size - integer - exponential -  ⟨25,28⟩ .
+Setting the hidden layer too small can low model capacity. Capacity is the ability of ML models to model the data. 
+E.g. linear regression has very small capacity, because it can only model linear relations. Setting the hidden layer too big can 
+cause overfitting. We will talk about overfitting in following labs.
+
+Number of layers - integer - linear -  ⟨1,5⟩ .
+Compared to previous hyperparameters, number of layers if often architecture specific. For MLP model we learned about so far we usually work 
+with relatively small number of layers. More layers are often used in computer vision convolutional neural networks.
+
+Activation function - categorical - { relu, sigmoid, ... }.
+Activation function can be experimented with, but is usually not so important. ReLU is usually a good starting point. 
+For really small models you can use sigmoid instead.
+
+Loss function - categorical - { cross-entropy + softmax activation, MSE + linear activation, ... }
+There are some loss functions that are usually used for some tasks, e.g. you should use cross-entropy with softmax for 
+classification or MSE for regression.
+
+
+Tuning in practice
+You usually start with manual tuning during the development, when you just want to quickly see whether the model works and is able to learn. 
+As soon as you have your model ready and you want to properly train and evaluate it, you should switch to random tuning.
+
+Check the hyperparameter values people use in recent (2014 or later) and related (same dataset or task) projects. 
+They should server as a fine starting point.
+
+You can gradually change the search intervals. E.g. if you find out that a certain subspace has good results, you can focus on this subspace. 
+Similarly, you can expand the range of some parameter, if the best results are achieved with its marginal values. E.g. with 
+batch sizes 4, 8 and 16 you always have the best results with 16. Then it makes sense to expand the batch size range to 32 and perhaps 64 as well.
+
+There are multiple aspects we need to take into consideration when we choose the hyperparameters, e.g. batch size, layer size and number of layers 
+also influence how big is the model memory-wise. Setting these parameters too high can make the it too big for training on available hardware. 
+We are usually limited by the size of RAM in our HW accelerators (e.g. GPU cards).
