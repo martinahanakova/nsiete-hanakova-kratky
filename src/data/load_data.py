@@ -14,10 +14,7 @@ class AmazonReviewDataset:
     def __init__(self, dataset_file_name, test_ratio = 0.2, num_words = 1000, max_input_length = 256):
 
         print("loading from ", dataset_file_name)
-        data = pd.read_json(dataset_file_name, lines=True)
-
-        #with open(dataset_file_name) as json_file:
-        #    data = json.load(json_file, lines=True)
+        data = pd.read_json("../../data/raw/" + dataset_file_name, lines=True)
 
         data = data[['reviewText', 'helpful']]
 
@@ -27,7 +24,7 @@ class AmazonReviewDataset:
         data['helpful'] = pd.DataFrame(data['helpful'].str.replace(' ', ''))
         data['helpful_positive'], data['helpful_negative'] = data['helpful'].str.split(",").str
         del data['helpful']
-        data['helpful'] = (data['helpful_positive'].astype(int) - data['helpful_negative'].astype(int)) / (data['helpful_positive'].astype(int) + data['helpful_negative'].astype(int))
+
 
         print("preprocessing")
         x_sen = []
@@ -39,7 +36,6 @@ class AmazonReviewDataset:
 
         for i in range(len(data["reviewText"])):
             np.zeros(3)
-            #print(">>> ", int(data['helpful_positive'][i]), int(data['helpful_negative'][i]))
             if int(data['helpful_positive'][i]) == int(data['helpful_negative'][i]):
                 v = [1.0, 0.0, 0.0]
             else:
@@ -57,18 +53,13 @@ class AmazonReviewDataset:
         x = tokenizer.texts_to_sequences(x_sen)
         x = pad_sequences(x, padding = 'post', maxlen = max_input_length)
 
-        x           = np.asarray(x, dtype=np.float32)
-        y_target    = np.asarray(y_target, dtype=np.float32)
-
-        x = x.reshape(-1,)
-        y_target = y_target.reshape(-1,)
-
-
+        x           = np.array(x)
+        y_target    = np.array(y_target)
 
         self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(x, y_target, test_size=test_ratio, random_state=0)
-        self.num_words = num_words
+        self.num_words          = num_words
+        self.max_input_length   = max_input_length
 
-        print("shape = ", self.x_train.shape, self.y_train.shape)
 
     def remove_tags(self, text):
         TAG_RE = re.compile(r'<[^>]+>')
@@ -88,6 +79,3 @@ class AmazonReviewDataset:
         sentence = re.sub(r'\s+', ' ', sentence)
 
         return sentence
-
-
-#dataset = AmazonReviewDataset('Office_Products_5.json')
