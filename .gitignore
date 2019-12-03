@@ -1,2 +1,6 @@
 .DS_Store
-logs
+src/data/load_data.pyc
+src/data/__pycache__
+src/model/model.pyc
+src/model/__pycache__
+models/__pycache__
