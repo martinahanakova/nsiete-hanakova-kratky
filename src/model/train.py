@@ -5,6 +5,7 @@ sys.path.append("../../models")
 import model
 import keras
 import load_data
+import pretrained_emb
 import baseline
 import lstm
 import conv
@@ -13,17 +14,19 @@ import datetime
 
 dataset = load_data.AmazonReviewDataset('Office_Products_5.json')
 
+embedding = pretrained_emb.PretrainedEmbedding(dataset.num_words, dataset.word_index)
+
 
 epochs          =   10
 batch_size      =   32
 learning_rate   =   0.001
 
 print("creating model")
-#model = model.ReviewTagger(max_input_length=dataset.max_input_length, num_words=dataset.num_words, embedding_dim=64)
+model = model.ReviewTagger(embedding.embedding, max_input_length=dataset.max_input_length, num_words=dataset.num_words, embedding_dim=100)
 
 #model = baseline.BaselineModel(max_input_length=dataset.max_input_length, num_words=dataset.num_words, embedding_dim=64)
-model = lstm.LSTMModel(max_input_length=dataset.max_input_length, num_words=dataset.num_words, embedding_dim=64)
-#model = conv.ConvModel(max_input_length=dataset.max_input_length, num_words=dataset.num_words, embedding_dim=64)
+#model = lstm.LSTMModel(embedding.embedding, max_input_length=dataset.max_input_length, num_words=dataset.num_words, embedding_dim=100)
+#model = conv.ConvModel(embedding.embedding, max_input_length=dataset.max_input_length, num_words=dataset.num_words, embedding_dim=100)
 
 model.model.compile(optimizer=keras.optimizers.Adam(learning_rate=learning_rate),
               loss='categorical_crossentropy',

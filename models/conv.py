@@ -1,19 +1,20 @@
 import load_data
 import keras
 
-from keras.layers import Dense, Dropout, Flatten
-from keras.layers import Conv1D, Conv2D, MaxPooling1D, MaxPooling2D, LSTM, Embedding, Bidirectional
+from keras.layers import Conv1D, MaxPooling1D, Embedding, Dense, Dropout, Flatten
+from keras.initializers import Constant
 
 
 class ConvModel(keras.Model):
-    def __init__(self, max_input_length, num_words, embedding_dim, regularization=0.0001, dropout=0.2):
+    def __init__(self, embedding, max_input_length, num_words, embedding_dim, regularization=0.0001, dropout=0.2):
         super(ConvModel, self).__init__()
 
         self.emb = Embedding(
             input_dim=num_words,
             output_dim=embedding_dim,
             input_length = max_input_length,
-            trainable=True)
+            embeddings_initializer=Constant(embedding),
+            trainable=False)
 
         self.dropout1 = Dropout(dropout)
 

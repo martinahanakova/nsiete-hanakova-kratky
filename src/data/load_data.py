@@ -49,6 +49,7 @@ class AmazonReviewDataset:
 
         tokenizer = keras.preprocessing.text.Tokenizer(num_words)
         tokenizer.fit_on_texts(x_sen)
+        word_index = tokenizer.word_index
 
         x = tokenizer.texts_to_sequences(x_sen)
         x = pad_sequences(x, padding = 'post', maxlen = max_input_length)
@@ -59,6 +60,7 @@ class AmazonReviewDataset:
         self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(x, y_target, test_size=test_ratio, random_state=0)
         self.num_words          = num_words
         self.max_input_length   = max_input_length
+        self.word_index         = word_index
 
 
     def remove_tags(self, text):
