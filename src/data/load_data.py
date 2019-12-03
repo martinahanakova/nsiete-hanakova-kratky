@@ -47,17 +47,22 @@ class AmazonReviewDataset:
             y_target.append(v)
 
 
-        tokenizer = keras.preprocessing.text.Tokenizer(num_words)
-        tokenizer.fit_on_texts(x_sen)
-        word_index = tokenizer.word_index
-
-        x = tokenizer.texts_to_sequences(x_sen)
-        x = pad_sequences(x, padding = 'post', maxlen = max_input_length)
-
-        x           = np.array(x)
+        x           = np.array(x_sen)
         y_target    = np.array(y_target)
 
         self.x_train, self.x_test, self.y_train, self.y_test = train_test_split(x, y_target, test_size=test_ratio, random_state=0)
+
+        tokenizer = keras.preprocessing.text.Tokenizer(num_words)
+        tokenizer.fit_on_texts(x_train)
+        word_index = tokenizer.word_index
+
+        self.x_train = tokenizer.texts_to_sequences(self.x_train)
+        self.x_train = pad_sequences(x, padding = 'post', maxlen = max_input_length)
+
+        self.x_test = tokenizer.texts_to_sequences(self.x_test)
+        self.x_test = pad_sequences(x, padding = 'post', maxlen = max_input_length)
+
+
         self.num_words          = num_words
         self.max_input_length   = max_input_length
         self.word_index         = word_index
