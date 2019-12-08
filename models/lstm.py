@@ -28,6 +28,7 @@ class LSTMModel(keras.Model):
         self.lstm2 = Bidirectional(LSTM(
             input_shape=(max_input_length, embedding_dim),
             units=64,
+            return_sequences=True,
             kernel_regularizer=keras.regularizers.l1_l2(l1=regularization, l2=regularization)))
 
         self.flatten = Flatten()
