@@ -5,3 +5,4 @@ src/model/model.pyc
 src/model/__pycache__
 models/__pycache__
 glove
+logs

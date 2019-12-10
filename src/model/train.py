@@ -19,13 +19,14 @@ embedding = pretrained_emb.PretrainedEmbedding(dataset.num_words, dataset.word_i
 
 epochs          =   10
 batch_size      =   32
-learning_rate   =   0.001
+learning_rate   =   0.0001
+regularization  =   0.00001
 
 print("creating model")
-model = model.ReviewTagger(embedding.embedding, max_input_length=dataset.max_input_length, num_words=dataset.num_words, embedding_dim=100)
+#model = model.ReviewTagger(embedding.embedding, max_input_length=dataset.max_input_length, num_words=dataset.num_words, embedding_dim=100, regularization=regularization)
 
 #model = baseline.BaselineModel(max_input_length=dataset.max_input_length, num_words=dataset.num_words, embedding_dim=64)
-#model = lstm.LSTMModel(embedding.embedding, max_input_length=dataset.max_input_length, num_words=dataset.num_words, embedding_dim=100)
+model = lstm.LSTMModel(embedding.embedding, max_input_length=dataset.max_input_length, num_words=dataset.num_words, embedding_dim=100, regularization=regularization)
 #model = conv.ConvModel(embedding.embedding, max_input_length=dataset.max_input_length, num_words=dataset.num_words, embedding_dim=100)
 
 model.model.compile(optimizer=keras.optimizers.Adam(learning_rate=learning_rate),
